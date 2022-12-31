@@ -1,15 +1,14 @@
 package main
 
 import (
-	"fmt"
+	"os"
 
-	"github.com/bubbly-hb/blogSystem-gin-vue/controller"
-	"github.com/gin-gonic/gin"
+	"github.com/bubbly-hb/blogSystem-gin-vue/cmd"
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", controller.Ping)
-	r.Run(":8080")
-	fmt.Println("blogSystem-gin-vue")
+	if err := cmd.Execute(); err != nil {
+		println("start fail: ", err.Error())
+		os.Exit(-1)
+	}
 }
