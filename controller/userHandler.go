@@ -1,11 +1,11 @@
 package controller
 
 import (
-	"log"
-	"math/rand"
 	"net/http"
-	"time"
 
+	"github.com/bubbly-hb/blogSystem-gin-vue/dao"
+	"github.com/bubbly-hb/blogSystem-gin-vue/model"
+	"github.com/bubbly-hb/blogSystem-gin-vue/util"
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,24 +29,33 @@ func Register(ctx *gin.Context) {
 		return
 	}
 	if len(name) == 0 {
-		name = RandomString(10)
+		name = util.RandomString(10)
 	}
-	log.Println(name, password, email)
+
+	isEmailExist := dao.IsEmailExist(email)
+	if isEmailExist {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code": 422,
+			"msg":  "email already exist",
+		})
+		return
+	}
+
+	user := &model.User{
+		Name:     name,
+		Password: password,
+		Email:    email,
+	}
+	err := dao.CreateUser(user)
+	if err != nil {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"code": 422,
+			"msg":  "create user failed",
+		})
+		return
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "Register Success",
 	})
-}
-
-func RandomString(n int) string {
-	data := []byte{}
-	for i := 0; i < 26; i++ {
-		data = append(data, byte('a'+i))
-		data = append(data, byte('A'+i))
-	}
-	res := make([]byte, n)
-	rand.Seed(time.Now().Unix())
-	for i := 0; i < n; i++ {
-		res[i] = data[rand.Intn(len(data))]
-	}
-	return string(res)
 }
