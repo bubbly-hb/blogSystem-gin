@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/bubbly-hb/blogSystem-gin-vue/common"
-	"github.com/bubbly-hb/blogSystem-gin-vue/dao"
+	"github.com/bubbly-hb/blogSystem-gin/common"
+	"github.com/bubbly-hb/blogSystem-gin/dao"
 	"github.com/gin-gonic/gin"
 )
 

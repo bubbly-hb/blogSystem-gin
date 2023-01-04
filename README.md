@@ -1,1 +1,1 @@
-# blogSystem-gin-vue
+# blogSystem-gin

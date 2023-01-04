@@ -4,12 +4,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/bubbly-hb/blogSystem-gin-vue/common"
-	"github.com/bubbly-hb/blogSystem-gin-vue/dao"
-	"github.com/bubbly-hb/blogSystem-gin-vue/dto"
-	"github.com/bubbly-hb/blogSystem-gin-vue/model"
-	"github.com/bubbly-hb/blogSystem-gin-vue/response"
-	"github.com/bubbly-hb/blogSystem-gin-vue/util"
+	"github.com/bubbly-hb/blogSystem-gin/common"
+	"github.com/bubbly-hb/blogSystem-gin/dao"
+	"github.com/bubbly-hb/blogSystem-gin/dto"
+	"github.com/bubbly-hb/blogSystem-gin/model"
+	"github.com/bubbly-hb/blogSystem-gin/response"
+	"github.com/bubbly-hb/blogSystem-gin/util"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )

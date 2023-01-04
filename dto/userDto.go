@@ -1,6 +1,6 @@
 package dto
 
-import "github.com/bubbly-hb/blogSystem-gin-vue/model"
+import "github.com/bubbly-hb/blogSystem-gin/model"
 
 type UserDto struct {
 	Name  string `json:"name,omitempty"`

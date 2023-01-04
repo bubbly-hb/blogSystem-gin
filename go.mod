@@ -1,4 +1,4 @@
-module github.com/bubbly-hb/blogSystem-gin-vue
+module github.com/bubbly-hb/blogSystem-gin
 
 go 1.18
 

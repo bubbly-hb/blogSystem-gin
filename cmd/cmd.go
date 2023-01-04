@@ -3,10 +3,10 @@ package cmd
 import (
 	"os"
 
-	"github.com/bubbly-hb/blogSystem-gin-vue/config"
-	"github.com/bubbly-hb/blogSystem-gin-vue/db"
-	"github.com/bubbly-hb/blogSystem-gin-vue/model"
-	"github.com/bubbly-hb/blogSystem-gin-vue/router"
+	"github.com/bubbly-hb/blogSystem-gin/config"
+	"github.com/bubbly-hb/blogSystem-gin/db"
+	"github.com/bubbly-hb/blogSystem-gin/model"
+	"github.com/bubbly-hb/blogSystem-gin/router"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

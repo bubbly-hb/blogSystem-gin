@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"github.com/bubbly-hb/blogSystem-gin-vue/db"
-	"github.com/bubbly-hb/blogSystem-gin-vue/model"
+	"github.com/bubbly-hb/blogSystem-gin/db"
+	"github.com/bubbly-hb/blogSystem-gin/model"
 )
 
 func GetUserByEmail(email string) (*model.User, error) {

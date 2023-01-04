@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/bubbly-hb/blogSystem-gin-vue/cmd"
+	"github.com/bubbly-hb/blogSystem-gin/cmd"
 )
 
 func main() {

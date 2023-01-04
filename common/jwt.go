@@ -3,7 +3,7 @@ package common
 import (
 	"time"
 
-	"github.com/bubbly-hb/blogSystem-gin-vue/model"
+	"github.com/bubbly-hb/blogSystem-gin/model"
 	"github.com/dgrijalva/jwt-go"
 )
 
@@ -15,7 +15,7 @@ type Claims struct {
 }
 
 func ReleaseToken(user *model.User) (string, error) {
-	expirationTime := time.Now().Add(24 * time.Hour)
+	expirationTime := time.Now().Add(time.Hour)
 	claims := &Claims{
 		UserID: user.ID,
 		StandardClaims: jwt.StandardClaims{

@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/bubbly-hb/blogSystem-gin-vue/controller"
-	"github.com/bubbly-hb/blogSystem-gin-vue/middleware"
+	"github.com/bubbly-hb/blogSystem-gin/controller"
+	"github.com/bubbly-hb/blogSystem-gin/middleware"
 	"github.com/gin-gonic/gin"
 )
 
