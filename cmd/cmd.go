@@ -1,22 +1,18 @@
 package cmd
 
 import (
-	"log"
-	"net/http"
 	"os"
 
 	"github.com/bubbly-hb/blogSystem-gin-vue/config"
 	"github.com/bubbly-hb/blogSystem-gin-vue/db"
 	"github.com/bubbly-hb/blogSystem-gin-vue/model"
 	"github.com/bubbly-hb/blogSystem-gin-vue/router"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 var (
 	cfgFile string
-	logger  = &logrus.Logger{}
 	rootCmd = &cobra.Command{}
 )
 
@@ -49,11 +45,8 @@ func Execute() error {
 		defer db.DB.Close()
 
 		r := router.SetupRouter()
-		r.Run()
-
-		port := viper.GetString("port")
-		log.Println("port = *** =", port)
-		return http.ListenAndServe(port, nil) // listen and serve
+		port := viper.GetString("server.port")
+		return r.Run(port)
 	}
 
 	return rootCmd.Execute()
