@@ -13,7 +13,14 @@ func GetUserByEmail(email string) (*model.User, error) {
 	}
 	return user, nil
 }
-
+func GetUserByID(id uint) (*model.User, error) {
+	user := &model.User{}
+	err := db.DB.Debug().Where("id=?", id).First(user).Error
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
 func IsEmailExist(email string) bool {
 	user := &model.User{}
 	db.DB.Where("email=?", email).First(user)
