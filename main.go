@@ -1,14 +1,11 @@
 package main
 
 import (
-	"os"
-
-	"github.com/bubbly-hb/blogSystem-gin/cmd"
+	"github.com/bubbly-hb/blogSystem-gin/model"
+	"github.com/bubbly-hb/blogSystem-gin/routes"
 )
 
 func main() {
-	if err := cmd.Execute(); err != nil {
-		println("start fail: ", err.Error())
-		os.Exit(-1)
-	}
+	model.InitDb()
+	routes.InitRouter()
 }
