@@ -15,7 +15,7 @@ func InitRouter() {
 		// 用户模块的路由接口
 		router.POST("user/add", v1.AddUser)
 		router.GET("user/get", v1.GetUsers)
-		router.PUT("user/:id", v1.EditUser)
+		router.PUT("user/:id", v1.UpdateUser)
 		router.DELETE("user/:id", v1.DeleteUser)
 
 		// 分类模块的路由接口

@@ -17,7 +17,7 @@ func AddUser(c *gin.Context) {
 	// ...
 	// 密码加密存储 scrypt TODO
 	// ...
-	errorCode := model.CheckUser(user.Username)
+	_, errorCode := model.CheckUser(user.Username)
 	if errorCode == errmsg.SUCCESS {
 		model.CreateUser(&user)
 	}
@@ -62,11 +62,32 @@ func GetUsers(c *gin.Context) {
 }
 
 // 编辑用户
-func EditUser(c *gin.Context) {
-
+func UpdateUser(c *gin.Context) {
+	uid, _ := strconv.Atoi(c.Param("id"))
+	var user model.User
+	c.ShouldBindJSON(&user) // 这里注意加&
+	uidByName, errCode := model.CheckUser(user.Username)
+	// fmt.Println(uidByName, errCode, uid, user.Username, user.Role)
+	if errCode == errmsg.SUCCESS || uidByName == uint(uid) {
+		errCode = errmsg.SUCCESS
+		model.UpdateUser(uint(uid), user)
+	}
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  errCode,
+			"message": errmsg.GetErrMsg(errCode),
+		},
+	)
 }
 
 // 删除用户
 func DeleteUser(c *gin.Context) {
-
+	uid, _ := strconv.Atoi(c.Param("id"))
+	errCode := model.DeleteUser(uint(uid))
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  errCode,
+			"message": errmsg.GetErrMsg(errCode),
+		},
+	)
 }

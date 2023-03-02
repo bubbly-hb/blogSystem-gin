@@ -12,13 +12,13 @@ type User struct {
 	Role     int    `gorm:"type:int;DEFAULT:2" json:"role" validate:"required,gte=2" label:"角色码"`
 }
 
-func CheckUser(name string) (code int) {
+func CheckUser(name string) (uid uint, code int) {
 	var user User
 	db.Select("id").Where("username = ?", name).First(&user)
 	if user.ID > 0 {
-		return errmsg.ERROR_USERNAME_USED
+		return user.ID, errmsg.ERROR_USERNAME_USED
 	}
-	return errmsg.SUCCESS
+	return 0, errmsg.SUCCESS
 }
 
 func CreateUser(user *User) int {
@@ -39,4 +39,20 @@ func GetUsers(userName string, pageSize, pageNum int) ([]User, int) {
 		db.Select("id, username, role, created_at").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&users)
 	}
 	return users, len(users)
+}
+
+func UpdateUser(id uint, user User) int {
+	err := db.Model(&user).Where("id = ?", id).Updates(map[string]interface{}{"username": user.Username, "role": user.Role}).Error
+	if err != nil {
+		return errmsg.ERROR
+	}
+	return errmsg.SUCCESS
+}
+
+func DeleteUser(id uint) int {
+	err := db.Where("id = ?", id).Delete(&User{}).Error
+	if err != nil {
+		return errmsg.ERROR
+	}
+	return errmsg.SUCCESS
 }
