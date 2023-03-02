@@ -24,6 +24,7 @@ func AddUser(c *gin.Context) {
 	c.JSON(
 		http.StatusOK, gin.H{
 			"status":  errorCode,
+			"data":    user,
 			"message": errmsg.GetErrMsg(errorCode),
 		},
 	)

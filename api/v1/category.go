@@ -22,6 +22,7 @@ func AddCategory(c *gin.Context) {
 	c.JSON(
 		http.StatusOK, gin.H{
 			"status":  errorCode,
+			"data":    category,
 			"message": errmsg.GetErrMsg(errorCode),
 		},
 	)
