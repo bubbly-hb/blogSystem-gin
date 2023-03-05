@@ -25,35 +25,76 @@ func AddArticle(c *gin.Context) {
 	)
 }
 
-// // 查询用户列表
-// func GetUsers(c *gin.Context) {
-// 	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
-// 	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
-// 	username := c.Query("username")
+// 查询分类下的所有文章
+func GetArticlesByCategory(c *gin.Context) {
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
+	cid, _ := strconv.Atoi(c.Query("cid"))
 
-// 	switch {
-// 	case pageSize >= 100:
-// 		pageSize = 100
-// 	case pageSize <= 0:
-// 		pageSize = 10
-// 	}
+	switch {
+	case pageSize >= 100:
+		pageSize = 100
+	case pageSize <= 0:
+		pageSize = 10
+	}
 
-// 	if pageNum == 0 {
-// 		pageNum = 1
-// 	}
+	if pageNum == 0 {
+		pageNum = 1
+	}
 
-// 	users, total := model.GetUsers(username, pageSize, pageNum)
+	articles, total, errCode := model.GetArticlesByCategory(cid, pageSize, pageNum)
 
-// 	code := errmsg.SUCCESS
-// 	c.JSON(
-// 		http.StatusOK, gin.H{
-// 			"status":  code,
-// 			"data":    users,
-// 			"total":   total,
-// 			"message": errmsg.GetErrMsg(code),
-// 		},
-// 	)
-// }
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  errCode,
+			"data":    articles,
+			"total":   total,
+			"message": errmsg.GetErrMsg(errCode),
+		},
+	)
+}
+
+// 查询单个文章
+func GetArticle(c *gin.Context) {
+	articleId, _ := strconv.Atoi(c.Param("id"))
+	article, errorCode := model.GetArticle(articleId)
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  errorCode,
+			"data":    article,
+			"message": errmsg.GetErrMsg(errorCode),
+		},
+	)
+}
+
+// 查询文章列表
+func GetArticles(c *gin.Context) {
+	pageSize, _ := strconv.Atoi(c.Query("pagesize"))
+	pageNum, _ := strconv.Atoi(c.Query("pagenum"))
+	title := c.Query("title")
+
+	switch {
+	case pageSize >= 100:
+		pageSize = 100
+	case pageSize <= 0:
+		pageSize = 10
+	}
+
+	if pageNum == 0 {
+		pageNum = 1
+	}
+
+	articles, total, errCode := model.GetArticles(title, pageSize, pageNum)
+
+	c.JSON(
+		http.StatusOK, gin.H{
+			"status":  errCode,
+			"data":    articles,
+			"total":   total,
+			"message": errmsg.GetErrMsg(errCode),
+		},
+	)
+}
 
 // 编辑文章
 func UpdateArticle(c *gin.Context) {
